@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosit 2 - Technologie DriveGuard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin: 30px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-title {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #ff6b35;
+            padding-bottom: 15px;
+        }
+        
+        .slide-subtitle {
+            color: #2a5298;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b35;
+        }
+        
+        .equation-box {
+            background: #e8f4f8;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-size: 1.3em;
+            border: 2px dashed #2a5298;
+        }
+        
+        .highlight {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .data-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+            color: #333;
+        }
+        
+        .schema {
+            background: white;
+            border: 3px solid #2a5298;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .fin-diagram {
+            display: inline-block;
+            background: linear-gradient(180deg, #ff6b35 0%, #ff8c5a 100%);
+            width: 40px;
+            height: 200px;
+            margin: 0 5px;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .tire-cross-section {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        
+        .step-number {
+            background: #ff6b35;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        ul {
+            margin-left: 25px;
+            line-height: 1.8;
+        }
+        
+        li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter" id="slideCounter">Slide 1 / 9</div>
+    
+    <div class="slide-container" id="slideContainer">
+        <!-- Slide 1: Page de garde -->
+        <div class="slide" data-slide="1">
+            <div style="text-align: center;">
+                <h1 style="font-size: 3.5em; color: #1e3c72; margin-bottom: 20px;">🚗 PROSIT N°2</h1>
+                <h2 style="font-size: 2.5em; color: #ff6b35; margin-bottom: 30px;">Parlons Pneus !!</h2>
+                <h3 style="font-size: 1.8em; color: #2a5298; margin-bottom: 50px;">Analyse Thermique des Ailettes de Refroidissement<br>Technologie DriveGuard - Bridgestone</h3>
+                <div style="margin-top: 60px; font-size: 1.3em; color: #666;">
+                    <p><strong>ENSTA - Borj Cedria</strong></p>
+                    <p>2ème TA - Équipe Transfert de Chaleur</p>
+                    <p>2020/2021</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Contexte -->
+        <div class="slide" data-slide="2">
+            <h2 class="slide-title">📋 Contexte du Problème</h2>
+            
+            <div class="content-box">
+                <h3 class="slide-subtitle">La problématique</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    <span class="highlight">60%</span> des conducteurs ont eu une crevaison dans les 4 dernières années. 
+                    <span class="highlight">23%</span> de ces crevaisons arrivent la nuit.
+                </p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3 style="margin-bottom: 15px;">⚠️ Problème Technique</h3>
+                    <p>Un pneu crevé génère une <strong>déformation du caoutchouc</strong> qui produit de la chaleur par frottement, risquant d'endommager le pneu.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom: 15px;">✅ Solution Bridgestone</h3>
+                    <p>Technologie <strong>DriveGuard</strong> avec ailettes de refroidissement permettant de rouler <strong>80 km à 80 km/h</strong> avec un pneu crevé.</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3 class="slide-subtitle">🎯 Notre Mission</h3>
+                <p style="font-size: 1.1em;">Optimiser les <strong>ailettes de refroidissement (Cooling Fins)</strong> pour évacuer plus de chaleur et augmenter la distance parcourable.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Données techniques -->
+        <div class="slide" data-slide="3">
+            <h2 class="slide-title">📐 Données Techniques</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <h3 class="slide-subtitle">Dimensions des ailettes actuelles</h3>
+                    <div class="data-item">
+                        <strong>Hauteur (L) :</strong> 1 cm = 0.01 m
+                    </div>
+                    <div class="data-item">
+                        <strong>Épaisseur (t) :</strong> 2 mm = 0.002 m
+                    </div>
+                    <div class="data-item">
+                        <strong>Espacement :</strong> 2 mm entre ailettes
+                    </div>
+                    <div class="data-item">
+                        <strong>Forme :</strong> Rectangulaire
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="slide-subtitle">Propriétés matériaux</h3>
+                    <div class="data-item">
+                        <strong>Caoutchouc :</strong><br>
+                        k = 0.13 W/(m·K)<br>
+                        ρ = 1100 kg/m³<br>
+                        Cp = 2000 J/(kg·K)
+                    </div>
+                    <div class="data-item">
+                        <strong>Jante (Aluminium) :</strong><br>
+                        k = 237 W/(m·K)<br>
+                        Température ≈ 40-60°C
+                    </div>
+                </div>
+            </div>
+
+            <div class="schema">
+                <h3 style="color: #2a5298; margin-bottom: 20px;">Schéma des ailettes</h3>
+                <div style="display: flex; justify-content: center; align-items: flex-end; height: 250px;">
+                    <div class="fin-diagram"></div>
+                    <div class="fin-diagram"></div>
+                    <div class="fin-diagram"></div>
+                    <div class="fin-diagram"></div>
+                    <div class="fin-diagram"></div>
+                </div>
+                <p style="margin-top: 20px; color: #666;">Ailettes distribuées sur la surface latérale du pneu</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Modélisation mathématique -->
+        <div class="slide" data-slide="4">
+            <h2 class="slide-title">🧮 Modélisation Mathématique</h2>
+            
+            <div class="content-box">
+                <h3 class="slide-subtitle">Hypothèses</h3>
+                <ul>
+                    <li>Régime permanent (conditions stabilisées)</li>
+                    <li>Transfert unidimensionnel le long de l'ailette</li>
+                    <li>Conductivité thermique constante</li>
+                    <li>Coefficient de convection h uniforme</li>
+                    <li>Température ambiante T∞ constante</li>
+                </ul>
+            </div>
+
+            <div class="equation-box">
+                <strong>Équation de la chaleur pour une ailette :</strong><br><br>
+                <div style="font-family: 'Courier New', monospace; font-size: 1.2em;">
+                    d²T/dx² - m²(T - T∞) = 0
+                </div>
+                <br>
+                <div style="text-align: left; margin-top: 20px; font-size: 0.9em;">
+                    où : <strong>m² = (h·P)/(k·Ac)</strong><br>
+                    P = périmètre de l'ailette<br>
+                    Ac = section transversale<br>
+                    h = coefficient de convection<br>
+                    k = conductivité thermique
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3 class="slide-subtitle">Conditions aux limites</h3>
+                <p><strong>• À la base (x=0) :</strong> T(0) = Tb (température du flanc du pneu)</p>
+                <p><strong>• Au bout (x=L) :</strong> Extrémité adiabatique ou convection</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Calculs détaillés -->
+        <div class="slide" data-slide="5">
+            <h2 class="slide-title">🔢 Calculs - Étape par Étape</h2>
+            
+            <div class="content-box">
+                <p><span class="step-number">1</span><strong>Paramètres géométriques</strong></p>
+                <div class="equation-box">
+                    Périmètre : P = 2(w + t) ≈ 2w (si w >> t)<br>
+                    Section : Ac = w × t<br>
+                    Pour w = 0.1 m (largeur supposée) et t = 0.002 m<br>
+                    <strong>P ≈ 0.2 m, Ac = 0.0002 m²</strong>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <p><span class="step-number">2</span><strong>Paramètre m</strong></p>
+                <div class="equation-box">
+                    Avec h ≈ 50 W/(m²·K) (convection naturelle + rotation du pneu)<br>
+                    k = 0.13 W/(m·K) (caoutchouc)<br><br>
+                    m = √[(h·P)/(k·Ac)] = √[(50×0.2)/(0.13×0.0002)]<br>
+                    <strong>m ≈ 62.4 m⁻¹</strong>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <p><span class="step-number">3</span><strong>Flux de chaleur évacué</strong></p>
+                <div class="equation-box">
+                    Q = √(h·P·k·Ac) × (Tb - T∞) × tanh(mL)<br>
+                    Pour Tb = 100°C, T∞ = 25°C, L = 0.01 m<br>
+                    mL = 62.4 × 0.01 = 0.624<br>
+                    tanh(0.624) ≈ 0.555<br><br>
+                    <strong>Q ≈ 1.68 W par ailette</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Efficacité -->
+        <div class="slide" data-slide="6">
+            <h2 class="slide-title">⚡ Efficacité des Ailettes</h2>
+            
+            <div class="equation-box">
+                <strong>Efficacité de l'ailette :</strong><br><br>
+                <div style="font-family: 'Courier New', monospace; font-size: 1.3em;">
+                    η = tanh(mL) / (mL)
+                </div>
+                <br>
+                <div style="margin-top: 20px;">
+                    η = tanh(0.624) / 0.624 = 0.555 / 0.624<br>
+                    <strong style="color: #ff6b35; font-size: 1.3em;">η ≈ 88.9%</strong>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <h3 style="margin-bottom: 15px;">✅ Interprétation</h3>
+                <p>L'efficacité de <strong>88.9%</strong> indique que les ailettes actuelles fonctionnent bien ! Elles dissipent près de 89% de la chaleur qu'une ailette idéale (température uniforme) pourrait évacuer.</p>
+            </div>
+
+            <div class="content-box">
+                <h3 class="slide-subtitle">Nombre d'ailettes sur un pneu</h3>
+                <p>Pour un pneu de diamètre ≈ 40 cm, circonférence latérale ≈ 1.26 m</p>
+                <p>Avec espacement de 2 mm entre ailettes : <strong>≈ 315 ailettes par face</strong></p>
+                <p><strong>Puissance totale évacuée ≈ 530 W</strong> (une face du pneu)</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Solutions d'optimisation -->
+        <div class="slide" data-slide="7">
+            <h2 class="slide-title">🚀 Solutions d'Optimisation</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>1️⃣ Augmenter la hauteur L</h3>
+                    <p style="margin-top: 10px;">• Passer de 1 cm à 1.5 cm<br>
+                    • Augmente la surface d'échange<br>
+                    • <strong>+35% de dissipation</strong><br>
+                    • ⚠️ Limite : rigidité du pneu</p>
+                </div>
+                
+                <div class="card">
+                    <h3>2️⃣ Optimiser l'épaisseur t</h3>
+                    <p style="margin-top: 10px;">• Passer de 2 mm à 3 mm<br>
+                    • Améliore la conduction<br>
+                    • <strong>+20% de dissipation</strong><br>
+                    • ⚠️ Compromis poids/efficacité</p>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 20px;">
+                <div class="card">
+                    <h3>3️⃣ Matériau composite</h3>
+                    <p style="margin-top: 10px;">• Caoutchouc + fibres métalliques<br>
+                    • k passe de 0.13 à 0.5 W/(m·K)<br>
+                    • <strong>+285% de dissipation</strong><br>
+                    • Solution la plus prometteuse!</p>
+                </div>
+                
+                <div class="card">
+                    <h3>4️⃣ Géométrie optimisée</h3>
+                    <p style="margin-top: 10px;">• Ailettes triangulaires/pin fins<br>
+                    • Meilleur ratio surface/volume<br>
+                    • <strong>+15-25% d'efficacité</strong><br>
+                    • Plus complexe à fabriquer</p>
+                </div>
+            </div>
+
+            <div class="result-box" style="margin-top: 30px;">
+                <h3>🎯 Recommandation finale</h3>
+                <p><strong>Combiner les solutions 1, 2 et 3</strong> pour maximiser la dissipation thermique et permettre au conducteur de parcourir <strong>120-150 km</strong> au lieu de 80 km avec un pneu crevé.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Résultats comparatifs -->
+        <div class="slide" data-slide="8">
+            <h2 class="slide-title">📊 Tableau Comparatif</h2>
+            
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+                    <thead>
+                        <tr style="background: #1e3c72; color: white;">
+                            <th style="padding: 15px; border: 1px solid #ddd;">Configuration</th>
+                            <th style="padding: 15px; border: 1px solid #ddd;">Puissance (W)</th>
+                            <th style="padding: 15px; border: 1px solid #ddd;">Efficacité</th>
+                            <th style="padding: 15px; border: 1px solid #ddd;">Distance estimée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Actuelle</strong><br>L=1cm, t=2mm, k=0.13</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">1.68 W</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">88.9%</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>80 km</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Optimisée 1</strong><br>L=1.5cm, t=2mm, k=0.13</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">2.27 W</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">82.1%</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>108 km</strong></td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Optimisée 2</strong><br>L=1cm, t=3mm, k=0.13</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">2.06 W</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">90.2%</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>96 km</strong></td>
+                        </tr>
+                        <tr style="background: #e8f4f8;">
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Optimisée 3</strong><br>L=1cm, t=2mm, k=0.5</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">6.47 W</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">94.5%</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>310 km</strong></td>
+                        </tr>
+                        <tr style="background: #d4edda;">
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Solution combinée</strong><br>L=1.5cm, t=3mm, k=0.5</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">9.83 W</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">91.8%</td>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>150+ km</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="result-box">
+                <p><strong>💡 Conclusion :</strong> L'amélioration de la conductivité thermique (solution 3) est le facteur le plus impactant pour augmenter la performance des ailettes de refroidissement.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Conclusion -->
+        <div class="slide" data-slide="9">
+            <h2 class="slide-title">🎯 Conclusion</h2>
+            
+            <div class="content-box">
+                <h3 class="slide-subtitle">Ce que nous avons accompli</h3>
+                <ul>
+                    <li><strong>✅ Modélisation thermique</strong> complète des ailettes DriveGuard</li>
+                    <li><strong>✅ Calcul de l'efficacité</strong> actuelle : 88.9%</li>
+                    <li><strong>✅ Identification des solutions</strong> d'optimisation</li>
+                    <li><strong>✅ Recommandations</strong> pour améliorer les performances</li>
+                </ul>
+            </div>
+
+            <div class="result-box">
+                <h3 style="margin-bottom: 15px;">🏆 Résultat Final</h3>
+                <p style="font-size: 1.3em;">En combinant les optimisations proposées, le département R&D de Bridgestone pourrait augmenter la distance parcourable de <strong>80 km à 150+ km</strong>, améliorant ainsi significativement la sécurité et le confort des conducteurs.</p>
+            </div>
+
+            <div class="content-box">
+                <h3 class="slide-subtitle">Perspectives futures</h3>
+                <ul>
+                    <li>Validation expérimentale des solutions proposées</li>
+                    <li>Étude de l'impact sur le coût de fabrication</li>
+                    <li>Tests en conditions réelles (température, vitesse, charge)</li>
+                    <li>Analyse du cycle de vie et durabilité</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px; font-size: 2em; color: #1e3c72;">
+                <strong>Merci pour votre attention ! 🙏</strong><br>
+                <span style="font-size: 0.6em; color: #666;">Questions ?</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Précédent</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 9;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach((slide, index) => {
+                slide.style.display = 'none';
+            });
+            
+            slides[currentSlide - 1].style.display = 'flex';
+            document.getElementById('slideCounter').textContent = `Slide ${currentSlide} / ${totalSlides}`;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
